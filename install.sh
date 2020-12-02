@@ -299,10 +299,10 @@ check_wlan_interfaces() {
    for iface in $(ifconfig | grep -oE wlan[0-9]); do ifaces+=("$iface"); done
    for iface in $(rfkill list | grep -oE phy[0-9]); do rfaces+=("$iface"); done
 
-   if [[ "${#rfaces[@]}" > 1 ]]; then
+   if [[ "${#ifaces[@]}" > 1 ]]; then
        echo -e "\e[92m    [✔] Two interfaces detected, lets continue!\e[39m"
        if [[ "${#ifaces[@]}" < 1 ]]; then
-               for iface in rfaces; do rfkill unblock "$iface"; done
+               for iface in ifaces; do rfkill unblock "$iface"; done
        fi
    else
        echo -e "\e[91m    [✘] Two wireless interfaces are required."
